@@ -1,0 +1,14 @@
+// Atajos añadidos (los de Serpantinum están en keybinds.kdl)
+binds {
+    Mod+Z hotkey-overlay-title="Ancho completo" { maximize-column; }
+    F11 hotkey-overlay-title="Pantalla completa" { fullscreen-window; }
+    Mod+Ctrl+C hotkey-overlay-title="Centrar ventana" { center-column; }
+    Mod+Tab hotkey-overlay-title="Overview" { toggle-overview; }
+    Alt+Tab hotkey-overlay-title="Overview" { toggle-overview; }
+    Mod+Shift+B hotkey-overlay-title="Auriculares: conectar/soltar" { spawn "~/.local/bin/auriculares"; }
+}
+
+// Sin el selector Alt/Mod+Tab de niri (su recuadro "Scope" no se puede ocultar)
+recent-windows {
+    off
+}

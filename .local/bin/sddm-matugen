@@ -1,0 +1,31 @@
+#!/bin/sh
+# Pasa a SDDM (tema material-you) el fondo y los colores de Serpantinum (matugen).
+# Se lanza desde niri (ventanas.kdl) y se queda vigilando qs_colors.json.
+# (Antes también ponía el color del borde de niri; se quitó porque el borde está desactivado.)
+F="$HOME/.local/state/serpantinum/qs_colors.json"
+# /var/lib/sddm-matugen es nuestro y theme.conf.user del tema apunta ahí.
+SDDM_DIR=/var/lib/sddm-matugen
+sync_sddm() {
+    [ -w "$SDDM_DIR" ] || return
+    fondo=$(cat "$HOME/.cache/serpantinum/wallpaper/current_DP-3" 2>/dev/null)
+    case "$fondo" in
+        # SDDM solo muestra imágenes: de un fondo de vídeo se saca un fotograma (una vez por vídeo)
+        *.mp4|*.MP4|*.webm|*.mkv|*.mov|*.gif)
+            if [ -f "$fondo" ] && [ "$(cat "$SDDM_DIR/.origen" 2>/dev/null)" != "$fondo" ]; then
+                ffmpeg -loglevel error -y -ss 1 -i "$fondo" -frames:v 1 -c:v png -f image2 "$SDDM_DIR/fondo.tmp" \
+                    && mv -f "$SDDM_DIR/fondo.tmp" "$SDDM_DIR/fondo" && printf '%s\n' "$fondo" > "$SDDM_DIR/.origen"
+            fi ;;
+        *)
+            [ -f "$fondo" ] && ! cmp -s "$fondo" "$SDDM_DIR/fondo" && cp -f "$fondo" "$SDDM_DIR/fondo"
+            rm -f "$SDDM_DIR/.origen" ;;
+    esac
+    jq -r --arg bg "$SDDM_DIR/fondo" '"[General]\nmode=dark\nfont=Google-Sans\nbackground=\"\($bg)\"\n" +
+        "cText=\"\(.text)\"\ncDark=\"\(.blue)\"\ncMid=\"\(.mauve)\"\ncBusy=\"\(.blue)\"\ncMenu1=\"\(.mauve)\"\ncMenu2=\"\(.blue)\"\n" +
+        "cSurface=\"#E6\(.base[1:])\"\ncSurfaceSolid=\"\(.surface0)\"\ncSurfaceHover=\"\(.surface1)\"\n" +
+        "cField=\"\(.surface1)\"\ncFieldBox=\"\(.surface2)\"\ncOnAccent=\"\(.crust)\""' "$F" > "$SDDM_DIR/theme.conf.user" 2>/dev/null
+}
+sync_sddm
+while inotifywait -qq -e close_write,moved_to --include 'qs_colors\.json$' "$(dirname "$F")"; do
+    sleep 0.3
+    sync_sddm
+done

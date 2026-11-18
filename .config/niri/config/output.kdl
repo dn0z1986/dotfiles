@@ -1,0 +1,17 @@
+// Sobremesa: MSI G27C7 (principal, 165 Hz) y M27E en vertical a la derecha
+output "DP-3" {
+    mode "1920x1080@165.003"
+    scale 1
+    position x=0 y=0
+    focus-at-startup
+}
+output "HDMI-A-1" {
+    mode "1920x1080@74.986"
+    scale 1.5
+    transform "90"
+    position x=1920 y=-420
+    // En vertical las ventanas se abren ocupando todo el ancho
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}

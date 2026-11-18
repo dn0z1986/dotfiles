@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Regla nocturna de inactividad: la lanza serpantinum (idle.customActions en
+# ~/.config/serpantinum/settings.json) cuando se cumple el tiempo sin usar el PC.
+# Uso: noche-inactivo pantalla|suspender|cancelar
+# Entre DESDE y HASTA actúa al momento; fuera de esa franja espera hasta DESDE.
+# Si se vuelve a usar el PC antes, serpantinum llama a "cancelar" y no pasa nada.
+DESDE=2
+HASTA=8
+
+case $1 in
+    cancelar) pkill -f '^bash [^ ]*noche-inactivo (pantalla|suspender)$'; exit 0 ;;
+    pantalla|suspender) ;;
+    *) echo "uso: noche-inactivo pantalla|suspender|cancelar" >&2; exit 1 ;;
+esac
+
+h=$(date +%-H)
+if (( h < DESDE || h >= HASTA )); then
+    dia=today
+    (( h >= HASTA )) && dia=tomorrow
+    sleep $(( $(date -d "$dia $DESDE:00" +%s) - $(date +%s) )) &
+    trap 'kill $! 2>/dev/null; exit 0' TERM
+    wait $!
+fi
+
+case $1 in
+    pantalla) niri msg action power-off-monitors ;;
+    suspender) loginctl suspend ;;
+esac

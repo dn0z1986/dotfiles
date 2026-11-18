@@ -1,0 +1,5 @@
+// Cursor: tema propio (flecha hecha a mano); cámbialo por el tuyo, p. ej. "Adwaita".
+cursor {
+    xcursor-theme "Flecha-dn0z"
+    xcursor-size 24
+}

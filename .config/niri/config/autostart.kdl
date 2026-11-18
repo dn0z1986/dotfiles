@@ -1,0 +1,10 @@
+spawn-at-startup "gentoo-pipewire-launcher" "restart"
+spawn-at-startup "bash" "-c" "wl-paste --type text --watch cliphist store"
+spawn-at-startup "bash" "-c" "wl-paste --type image --watch cliphist store"
+spawn-at-startup "serpantinumd" "start"
+// KDE Connect: móvil ⇄ portátil (archivos, notificaciones, portapapeles)
+spawn-at-startup "kdeconnectd"
+// RGB: aplica el perfil guardado en OpenRGB ("d") al entrar
+spawn-at-startup "openrgb" "--profile" "d"
+// Agente SSH: guarda la clave desbloqueada durante la sesión
+spawn-at-startup "sh" "-c" "rm -f /run/user/1000/ssh-agent.sock; exec ssh-agent -D -a /run/user/1000/ssh-agent.sock"

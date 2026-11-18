@@ -1,0 +1,35 @@
+// Añadido para Gentoo: ventanas con esquinas redondeadas (mismo radio que Serpantinum)
+prefer-no-csd
+
+window-rule {
+    geometry-corner-radius 8
+    clip-to-geometry true
+    draw-border-with-background false
+}
+
+// Fondo de Serpantinum detrás del Overview (Mod+Retroceso) en vez de negro
+layer-rule {
+    match namespace="^wallpaper-bg$"
+    place-within-backdrop true
+}
+
+// Fondo y colores de matugen para SDDM
+spawn-at-startup "~/.local/bin/sddm-matugen"
+
+// Pantalla vertical: las ventanas nuevas se apilan debajo, no al lado
+spawn-at-startup "~/.local/bin/niri-apilar-vertical"
+
+// Spotify: abrir maximizado para que quepa entero en la pantalla
+window-rule {
+    match app-id="^[Ss]potify$"
+    open-maximized true
+}
+
+// Dolphin: translúcido con desenfoque detrás (como la opacidad 94 de ski)
+window-rule {
+    match app-id="^org\\.kde\\.dolphin$"
+    opacity 0.94
+    background-effect {
+        blur true
+    }
+}

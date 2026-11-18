@@ -1,0 +1,13 @@
+layout {
+    gaps 6
+    background-color "transparent"
+    border {
+        off
+    }
+    focus-ring {
+        off
+        width 1
+        active-color "#B39DDB"
+        inactive-color "#00000000"
+    }
+}

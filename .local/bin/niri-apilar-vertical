@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+# En la pantalla vertical (HDMI-A-1), las ventanas nuevas se apilan debajo de la
+# columna de la izquierda en vez de abrirse en una columna nueva al lado.
+# Se lanza desde niri (ventanas.kdl) y se queda escuchando el event-stream.
+import json, subprocess, time
+
+SALIDA = "HDMI-A-1"
+MAX_POR_COLUMNA = 3  # a partir de aquí sí abre columna nueva (si no quedan diminutas)
+
+def niri(*args):
+    return json.loads(subprocess.run(["niri", "msg", "-j", *args], capture_output=True, text=True).stdout)
+
+GAPS = 6  # el de layout.kdl
+
+def reencuadrar(w, salida):
+    # Algunas apps (ski, que es egui) se abren primero más anchas de lo que niri les pide: la vista
+    # se desplaza para que quepan y, al encogerse, ya no vuelve, dejando la columna de la izquierda
+    # medio fuera. Si la nueva y la de su izquierda caben juntas, se vuelve a encuadrar.
+    pos = w["layout"].get("pos_in_scrolling_layout")
+    if not pos or pos[0] <= 1:
+        return
+    time.sleep(0.3)  # que la ventana termine de ajustarse a su tamaño
+    ventanas = niri("windows")
+    w = next((v for v in ventanas if v["id"] == w["id"]), None)
+    if not w or not w["is_focused"]:
+        return
+    izq = [v for v in ventanas if v["workspace_id"] == w["workspace_id"] and not v["is_floating"]
+           and (v["layout"].get("pos_in_scrolling_layout") or [0])[0] == pos[0] - 1]
+    ancho = niri("outputs").get(salida, {}).get("logical", {}).get("width", 0)
+    if not izq or w["layout"]["tile_size"][0] + izq[0]["layout"]["tile_size"][0] + 3 * GAPS > ancho + 1:
+        return
+    subprocess.run(["niri", "msg", "action", "focus-column-left"])
+    subprocess.run(["niri", "msg", "action", "focus-column-right"])
+
+def apilar(win_id):
+    time.sleep(0.05)
+    ventanas = niri("windows")
+    w = next((v for v in ventanas if v["id"] == win_id), None)
+    if not w or w["is_floating"] or w["workspace_id"] is None:
+        return
+    salida = {ws["id"]: ws["output"] for ws in niri("workspaces")}
+    if salida.get(w["workspace_id"]) != SALIDA:
+        reencuadrar(w, salida[w["workspace_id"]])
+        return
+    pos = w["layout"].get("pos_in_scrolling_layout")
+    if not pos or pos[0] <= 1:
+        return
+    izq = [v for v in ventanas if v["workspace_id"] == w["workspace_id"] and not v["is_floating"]
+           and (v["layout"].get("pos_in_scrolling_layout") or [0])[0] == pos[0] - 1]
+    if 0 < len(izq) < MAX_POR_COLUMNA:
+        subprocess.run(["niri", "msg", "action", "consume-or-expel-window-left", "--id", str(win_id)])
+
+conocidas = set()
+proc = subprocess.Popen(["niri", "msg", "-j", "event-stream"], stdout=subprocess.PIPE, text=True)
+for linea in proc.stdout:
+    try:
+        ev = json.loads(linea)
+    except json.JSONDecodeError:
+        continue
+    if "WindowsChanged" in ev:
+        conocidas = {v["id"] for v in ev["WindowsChanged"]["windows"]}
+    elif "WindowOpenedOrChanged" in ev:
+        wid = ev["WindowOpenedOrChanged"]["window"]["id"]
+        if wid not in conocidas:
+            conocidas.add(wid)
+            apilar(wid)
+    elif "WindowClosed" in ev:
+        conocidas.discard(ev["WindowClosed"]["id"])

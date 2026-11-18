@@ -1,0 +1,30 @@
+# >>> serpantinum theme >>>
+gui:
+  theme:
+    activeBorderColor:
+      - "#87d1eb"
+      - bold
+    inactiveBorderColor:
+      - "#8a9296"
+    searchingActiveBorderColor:
+      - "#c2c3eb"
+      - bold
+    optionsTextColor:
+      - "#b3cad4"
+    selectedLineBgColor:
+      - "#344a52"
+    inactiveViewSelectedLineBgColor:
+      - "#252b2d"
+    cherryPickedCommitFgColor:
+      - "#2b2e4d"
+    cherryPickedCommitBgColor:
+      - "#c2c3eb"
+    markedBaseCommitFgColor:
+      - "#1e333b"
+    markedBaseCommitBgColor:
+      - "#b3cad4"
+    unstagedChangesColor:
+      - "#ffb4ab"
+    defaultFgColor:
+      - "#dee3e6"
+# <<< serpantinum theme <<<

@@ -1,0 +1,29 @@
+MenuBar=Disabled
+
+[General]
+GlobalViewProps=true
+Version=202
+ViewPropsTimestamp=2026,11,18,13,2,28.183
+
+[IconsMode]
+IconSize=48
+PreviewSize=48
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=16
+
+[MainWindow]
+MenuBar=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+ToolButtonStyle=IconOnly
+
+[PlacesPanel]
+IconSize=16
+
+[PreviewSettings]
+Plugins=comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,gsthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,opendocumentthumbnail,svgthumbnail,windowsexethumbnail,windowsimagethumbnail
+
+[UiSettings]
+ColorScheme=Serpantinum

@@ -1,0 +1,26 @@
+hotkey-overlay {
+    skip-at-startup
+}
+
+input {
+    focus-follows-mouse max-scroll-amount="0%"
+    keyboard {
+        xkb {
+            // Sobremesa: teclado físico americano. altgr-intl no cambia ninguna tecla;
+            // solo añade AltGr+n = ñ y AltGr+vocal = vocal con tilde.
+            layout "us"
+            variant "altgr-intl"
+        }
+    }
+    touchpad {
+        tap
+        natural-scroll
+        accel-profile "flat"
+        accel-speed 0.6
+        click-method "clickfinger"
+    }
+    mouse {
+        accel-profile "flat"
+        accel-speed 0.6
+    }
+}
