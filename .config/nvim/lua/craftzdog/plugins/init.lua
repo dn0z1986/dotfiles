@@ -2,7 +2,6 @@ gh = function(x)
 	return "https://github.com/" .. x
 end
 
--- dn0z: sin mason (binarios precompilados) ni copilot; las herramientas salen de Portage
 vim.pack.add({
 	-- UI
 	{ src = gh("craftzdog/solarized-osaka.nvim") },

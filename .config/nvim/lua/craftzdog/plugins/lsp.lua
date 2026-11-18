@@ -1,5 +1,3 @@
--- dn0z: sin mason. Los servidores se instalan con Portage (o npm para los de web) y aquí
--- solo se activan los que estén en el PATH, para no llenar de avisos al abrir ficheros.
 local capabilities = {
 	workspace = {
 		fileOperations = {

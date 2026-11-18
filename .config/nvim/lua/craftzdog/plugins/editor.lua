@@ -2,8 +2,6 @@
 ---@module 'blink.cmp'
 ---@type blink.cmp.Config
 require("blink.cmp").setup({
-	-- dn0z: nada de binarios descargados; el buscador en Rust se compila con cargo
-	-- (hook PackChanged más abajo) y si no está, tira del de Lua sin avisar.
 	fuzzy = {
 		implementation = "prefer_rust",
 		prebuilt_binaries = { download = false },

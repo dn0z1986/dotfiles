@@ -190,8 +190,8 @@
         "warningTimeout": 0,
         "warningCommand": "",
         "beforeCommand": "",
-        "command": "/home/dn0z/.local/bin/noche-inactivo pantalla",
-        "resumeCommand": "/home/dn0z/.local/bin/noche-inactivo cancelar",
+        "command": "~/.local/bin/noche-inactivo pantalla",
+        "resumeCommand": "~/.local/bin/noche-inactivo cancelar",
         "isCustom": true
       },
       {
@@ -204,8 +204,8 @@
         "warningTimeout": 0,
         "warningCommand": "",
         "beforeCommand": "",
-        "command": "/home/dn0z/.local/bin/noche-inactivo suspender",
-        "resumeCommand": "/home/dn0z/.local/bin/noche-inactivo cancelar",
+        "command": "~/.local/bin/noche-inactivo suspender",
+        "resumeCommand": "~/.local/bin/noche-inactivo cancelar",
         "isCustom": true
       }
     ]
@@ -214,7 +214,7 @@
     "dnd": true,
     "position": "top right",
     "sound": true,
-    "soundFile": "/home/dn0z/.local/share/serpantinum/src/assets/sounds/notifications/Botanica.wav",
+    "soundFile": "~/.local/share/serpantinum/src/assets/sounds/notifications/Botanica.wav",
     "horizontalPosition": 88,
     "verticalPosition": 5,
     "showEmptyGraphic": true
@@ -342,7 +342,7 @@
     "showRunningApps": false,
     "runningScope": "auto"
   },
-  "wallpaperDir": "/home/dn0z/Imágenes/Fondos",
+  "wallpaperDir": "~/Imágenes/Fondos",
   "launcher": {
     "position": "bottom",
     "width": 660,
@@ -351,7 +351,7 @@
     "smartRanking": false,
     "searchProvider": "google"
   },
-  "screenshotDir": "/home/dn0z/Imágenes/Capturas",
+  "screenshotDir": "~/Imágenes/Capturas",
   "widgets": {
     "hideBarInRedactor": true,
     "showDistances": true

@@ -2,9 +2,6 @@ local icons = Craftzdog.icons
 local lualine_utils = require("craftzdog.utils.lualine")
 local lazygit_utils = require("craftzdog.utils.lazygit")
 
--- dn0z: tema serpantinum (colors/serpantinum.lua, colores del escritorio) en vez de solarized-osaka.
--- Para volver al suyo: require("solarized-osaka").setup({ style = "vivid", transparent = true })
--- y vim.cmd.colorscheme("solarized-osaka").
 vim.cmd.colorscheme("serpantinum")
 
 require("mini.icons").setup()

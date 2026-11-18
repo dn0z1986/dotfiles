@@ -45,8 +45,6 @@ local ensure_installed = {
 	"yaml",
 }
 
--- dn0z: el CLI de tree-sitter viene de Portage (dev-util/tree-sitter-cli), no de mason.
--- Los parsers se compilan en local con gcc la primera vez.
 if vim.fn.executable("tree-sitter") == 1 then
 	TS.install(ensure_installed)
 else
@@ -84,7 +82,6 @@ local hooks = function(ev)
 	if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
 		vim.cmd("TSUpdate")
 	end
-	-- dn0z: las partes nativas se compilan aquí en vez de descargarlas
 	local build = ({
 		["blink.cmp"] = { "cargo", "build", "--release" },
 		["codediff.nvim"] = { "bash", "build.sh" },

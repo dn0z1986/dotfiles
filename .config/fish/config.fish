@@ -1,4 +1,3 @@
-# Configuración de dn0z
 set -g fish_greeting
 if status is-interactive
     fastfetch
