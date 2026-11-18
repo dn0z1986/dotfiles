@@ -5,6 +5,8 @@ Mi escritorio en Gentoo Linux: [niri](https://github.com/YaLTeR/niri) con
 
 ![Escritorio](assets/escritorio.png)
 
+Los fondos de pantalla están en [dn0z1986/wallpapers](https://github.com/dn0z1986/wallpapers).
+
 ## Qué hay
 
 | Qué | Dónde |
