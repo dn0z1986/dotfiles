@@ -3,6 +3,8 @@
 Mi escritorio en Gentoo Linux: [niri](https://github.com/YaLTeR/niri) con
 [Serpantinum](https://github.com/ilyamiro/serpantinum) (barra, lanzador, fondos y colores con matugen).
 
+![Escritorio](assets/escritorio.png)
+
 ## Qué hay
 
 | Qué | Dónde |
